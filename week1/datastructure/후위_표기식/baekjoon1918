@@ -1,0 +1,52 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+void solution();
+//A+(B*C)-(D/E)
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    solution();
+    return 0;
+}
+void solution(){
+    string str;
+    stack<char> st;
+    cin >> str;
+    for (int i = 0; i < str.size(); ++i) {
+        if(str[i]>='A'&&str[i]<='Z'){//알파뱃일때 처리
+            cout << str[i];
+        }
+        else{
+            if(str[i]=='('){
+                st.push(str[i]);
+            }
+            else if(str[i]==')'){// 닫힘 괄호 들어오면 스택에 잇던것들 열림괄호 전까지 pop
+                while(st.top()!='('){
+                    cout << st.top();
+                    st.pop();
+                }
+                st.pop();// 열림괄호 삭제
+            }
+            else if(str[i]=='*'||str[i]=='/'){// 우선순위가 높은 곱하기와 나눗셈을 우선순위가 낮은 것들 전까지 pop
+                while(!st.empty()&&(st.top()=='*'||st.top()=='/')){
+                    cout << st.top();
+                    st.pop();
+                }
+                st.push(str[i]);
+            }
+            else if(str[i]=='+'||str[i]=='-'){// + - 처리
+                while(!st.empty() && st.top() != '('){
+                    cout << st.top();
+                    st.pop();
+                }
+                st.push(str[i]);
+            }
+        }
+    }
+    while(!st.empty()){// 남은 스택 처리
+        cout << st.top();
+        st.pop();
+    }
+}
