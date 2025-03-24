@@ -1,8 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <deque>
-
-#define MAX 1001
 
 using namespace std;
 
@@ -11,79 +7,45 @@ int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0), cout.tie(0);
 
-    int N, M;
-    cin >> N >> M;
+    // 0~N까지의 수를 K개 더하여 N을 만들 때
+    // 점화식: a(N, K) = a(N, K-1) + a(N-1, K)
 
-    // - 위상 정렬로 구현
+    int N, K;
 
-    // 선수과목 저장
-    deque<int> prev [MAX];
-    // 접근 차수
-    int degree [MAX] = {0};
-    // 결과값
-    int result [MAX] = {1};
-
-    // 들었던 수업 저장
-    deque<int> done;
+    cin >> N >> K;
     
-    int first, second;
-
-    // 선수과목 조건 입력
-    for (int i=0; i<M; i++){
-        cin >> first;
-        cin >> second;
-
-        // 선수과목 인덱스에 후속 과목 저장
-        prev[first].push_back(second);
-        degree[second]++;
+    // 행렬로 개수 저장 number_list[N][K] 크기
+    int** number_list = new int*[N+1];
+    for (int i=0; i<N+1; i++){
+        number_list[i]=new int [K+1];
     }
 
-    // 차수가 0인 모든 과목 done에 저장
-    for (int i=1; i<N+1; i++){
-        if (degree[i]==0){
-            done.push_back(i);
-            degree[i]--;
+    // number_list[N][K] = 조건이 N, K이 주어졌을 때의 개수
 
-            // 처음이 아니면 횟수 증가
-            if (result[i]!=1) result[i]++;
+    // 초기값 부여 (K=1일 때)
+    for (int i=0; i<N+1; i++){
+        number_list[i][1]=1;
+    }
 
-            // 후속 과목 차수 -1
-            for (int num: prev[i]){
-                degree[num]--;
-            }
+    // 초기값 부여 (N=0일 때)
+    for (int i=0; i<K+1; i++){
+        number_list[0][i]=1;
+    }
+
+    // 점화식 이용, 값 채우기 (1000000000으로 나눈 나머지 값 출력)
+    for (int j=1; j<N+1; j++){
+        for (int i=1; i<K+1; i++){
+            number_list[j][i]=(number_list[j][i-1]+number_list[j-1][i])% 1000000000;
         }
     }
 
-    // 큐가 비기 전까지 실행
-    while(!done.empty()){
+    cout << number_list[N][K] << '\n';
 
-        // 큐의 맨 앞 요소 꺼내기 
-        int cur = done.front();
-        done.pop_front();
-
-        // 맨 앞 요소의 후속 과목 순회
-        for (int i=0; i<size(prev[cur]); i++){
-            int next = prev[cur][i];
-
-            // 후속 과목의 차수 감소
-            degree[next]--;
-
-            // 다른 과목에 의한 결과값 고려하여 max 사용 (중요!)
-            result[next] = max(result[next], result[cur]+1);
-
-            // 관계차수가 0이면 큐에 삽입
-            if (degree[next]==0){
-                done.push_back(next);
-            }
-        }
+    for (int i = 0; i < N + 1; i++) {
+        delete[] number_list[i];
     }
-
-    // 결과 출력
-    for (int i=1; i<N; i++){
-        cout << result[i] << " ";
-    }
-
-    cout << result[N];
+    delete[] number_list;
 
     return 0;
+
 }
