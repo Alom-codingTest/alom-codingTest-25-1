@@ -3,6 +3,8 @@ import heapq
 
 N=int(sys.stdin.readline().strip())
 
+
+ 
 heap=[]
 
 for i in range(N):
