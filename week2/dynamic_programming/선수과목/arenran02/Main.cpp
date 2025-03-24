@@ -61,24 +61,19 @@ int main(){
         int cur = done.front();
         done.pop_front();
 
-        // 맨 앞 요소의 후속 과목 순회
         for (int i=0; i<size(prev[cur]); i++){
             int next = prev[cur][i];
-
-            // 후속 과목의 차수 감소
             degree[next]--;
 
-            // 다른 과목에 의한 결과값 고려하여 max 사용 (중요!)
+            // 다른 과목들에 의한 result값 고려
             result[next] = max(result[next], result[cur]+1);
 
-            // 관계차수가 0이면 큐에 삽입
             if (degree[next]==0){
                 done.push_back(next);
             }
         }
     }
 
-    // 결과 출력
     for (int i=1; i<N; i++){
         cout << result[i] << " ";
     }
