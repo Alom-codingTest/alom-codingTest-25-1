@@ -1,9 +1,8 @@
-import sys
-import math
-input=sys.stdin.readline
-
-t=int(input())
-for i in range(t):
-  n, m=map(int,input().split())
-  result=math.comb(m, n)
-  print(result)
+import sys,math
+input=sys.stdin.readlinen
+n=int(input())
+result=0
+a=n//2
+for i in range(a+1):
+    resutl=math.comb(n-i,i)
+print(result%10007)
