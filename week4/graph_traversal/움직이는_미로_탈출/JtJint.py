@@ -45,9 +45,5 @@ while Q :
     for i, j in ableList :
         if tmpChess[i][j] == '.' :
             Q.append((i,j,tmpChess))
-    
             
-    
-    
 print(result)
-
