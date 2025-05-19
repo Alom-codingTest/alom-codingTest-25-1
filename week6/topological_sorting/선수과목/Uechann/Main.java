@@ -16,11 +16,8 @@ package topological_sorting.선수과목.Uechann;
 출력
 1번 과목부터 N번 과목까지 차례대로 최소 몇 학기에 이수할 수 있는지를 한 줄에 공백으로 구분하여 출력한다.*/
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     static int[] indegree;
@@ -28,7 +25,7 @@ public class Main {
     static int[][] graph;
 
     public static void main(String[] args) throws Exception {
-        java.io.BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
         StringTokenizer st = new StringTokenizer(input);
         int N = Integer.parseInt(st.nextToken());

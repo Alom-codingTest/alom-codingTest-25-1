@@ -41,7 +41,6 @@ public class Main {
 
         indegree = new int[N + 1];
 
-
         graph = new ArrayList<>();
         for (int i = 0; i <= N; i++) {
             graph.add(new ArrayList<>());
