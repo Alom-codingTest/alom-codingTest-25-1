@@ -1,4 +1,4 @@
-package week4.graph_traversal.트리의_부모_찾기._10Hyuna;
+package week4.graph_traversal.트리의부모찾기._10Hyuna;
 
 import java.io.BufferedReader;
 import java.io.IOException;
