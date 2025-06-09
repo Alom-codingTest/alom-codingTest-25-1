@@ -12,15 +12,15 @@ for _ in range(M):
 visited = [False for _ in range(N+1)]
 def bfs():
     q = deque()
-    count = 0 # 감염된 컴퓨터 수
-    q.append(1) # 1번 컴퓨터로부터 시작
-    visited[1] = True # 1번 컴퓨터 감염완료
+    count = 0
+    q.append(1)
+    visited[1] = True
     while q:
         cur = q.popleft()
-        for i, val in enumerate(net[cur]): # 감염된 컴퓨터로부터 연결된 컴퓨터들에서
-            if visited[val]==False: # 감염되지 않았다면
-                q.append(val) # 감염리스트에 추가
-                visited[val] = True # 감염완료
-                count += 1 # 감염된 컴퓨터 수 1 증가
-    print(count) # 모두 감염되었을 때 출력
+        for i, val in enumerate(net[cur]):
+            if visited[val]==False:
+                q.append(val)
+                visited[val] = True
+                count += 1
+    print(count) 
 bfs()
